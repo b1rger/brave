@@ -60,7 +60,7 @@ def start_brave():
     session.start()
 
 
-if __name__ == '__main__':
+def cli():
     Gst.init(None)
     if not check_gstreamer_plugins():
         sys.exit(1)
@@ -74,3 +74,7 @@ if __name__ == '__main__':
     except brave.exceptions.PipelineFailure as e:
         print('Failed to create GStreamer pipeline: %s' % e)
         sys.exit(1)
+
+
+if __name__ == '__main__':
+    cli()
