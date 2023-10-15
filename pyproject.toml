@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "brave"
+version = "1.4.0"
+description = "Basic real-time (remote) audio/video editor"
+authors = ["Your Name <you@example.com>"]
+license = "Apache License"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+PyYAML = "^6.0.1"
+gbulb = "^0.6.4"
+sanic = "^23.6.0"
+websockets = "^11.0.3"
+Pillow = "^10.0.1"
+PyGObject = "^3.46.0"
+vext = "^0.7.6"
+psutil = "^5.9.5"
+gobject = "^0.1.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
