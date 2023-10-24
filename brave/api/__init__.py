@@ -17,7 +17,7 @@ class RestApi(object):
     '''
 
     def __init__(self, session):
-        app = Sanic()
+        app = Sanic(name="dorftv_brave")
         app.config.KEEP_ALIVE = False
         session.rest_api = self
         self.webockets_handler = brave.api.websockets_handler.WebsocketsHandler(session)
@@ -26,8 +26,8 @@ class RestApi(object):
         app.static('/', './public/index.html', name='index.html')
         app.static('/elements_table', './public/elements_table.html', name='elements_table.html')
         app.static('/style.css', './public/style.css', name='style.css')
-        app.static('/js/', './public/js/')
-        app.static('/output_images/', '/usr/local/share/brave/output_images/')
+        app.static('/js/', './public/js/', name="js")
+        app.static('/output_images/', '/usr/local/share/brave/output_images/', name="output_images")
 
         @app.exception(NotFound)
         async def not_found(request, exception):
@@ -39,7 +39,7 @@ class RestApi(object):
 
         @app.middleware('request')
         async def give_session_to_each_route_handler(request):
-            request['session'] = session
+            request.ctx.session = session
 
         @app.middleware('request')
         async def ensure_objects_always_provided_in_json(request):
