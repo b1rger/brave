@@ -27,7 +27,11 @@ RUN apt-get update && \
     gir1.2-gst-plugins-bad-1.0 \
     gir1.2-gstreamer-1.0 \
     gir1.2-gst-plugins-base-1.0  \
-    gstreamer1.0-vaapi vainfo
+    gstreamer1.0-vaapi vainfo \
+    curl
+
+# currently we install gst-interpipe manually
+RUN curl -JO https://people.debian.org/~birger/aequee2XOhwa7oow/gst-interpipe_1.1.8-1_amd64.deb && dpkg -i gst-interpipe_1.1.8-1_amd64.deb
 
 COPY . /src
 RUN cd /src && pip install . --ignore-installed && mkdir -p /usr/local/share/brave/output_images/
