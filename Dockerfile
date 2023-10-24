@@ -6,7 +6,6 @@ ENV PYTHONPATH=/src
 
 RUN apt-get update && \
     apt-get install -yq \
-    git \
     gstreamer1.0-wpe \
     gstreamer1.0-tools \
     gstreamer1.0-rtsp \
@@ -28,8 +27,7 @@ RUN apt-get update && \
     gir1.2-gst-plugins-bad-1.0 \
     gir1.2-gstreamer-1.0 \
     gir1.2-gst-plugins-base-1.0  \
-    gstreamer1.0-vaapi vainfo \
-    python3-poetry
+    gstreamer1.0-vaapi vainfo
 
 COPY . /src
 RUN cd /src && pip install . --ignore-installed && mkdir -p /usr/local/share/brave/output_images/
