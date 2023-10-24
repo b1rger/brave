@@ -2,6 +2,7 @@ FROM python:3.11-slim-bookworm
 
 ENV LC_ALL=C.UTF-8
 ENV LANG=C.UTF-8
+ENV PYTHONPATH=/src
 
 RUN apt-get update && \
     apt-get install -yq \
@@ -31,7 +32,7 @@ RUN apt-get update && \
     python3-poetry
 
 COPY . /src
-RUN cd /src && pip install . && mkdir -p /usr/local/share/brave/output_images/
+RUN cd /src && pip install . --ignore-installed && mkdir -p /usr/local/share/brave/output_images/
 
 EXPOSE 5000
 WORKDIR /src
