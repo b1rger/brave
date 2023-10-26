@@ -96,9 +96,9 @@ class Connection():
 
         # Give the 'inter' elements a channel name. It doesn't matter what, so long as they're unique.
         channel_name = create_intersink_channel_name()
-        # intersink.set_property('async', 'false')
         intersrc.set_property('format', 'time')
         intersrc.set_property('listen-to', intersink.name)
+        intersrc.set_property('do-timestamp', 'true')
         return intersrc, intersink
 
     def _block_intersrc(self, audio_or_video):
