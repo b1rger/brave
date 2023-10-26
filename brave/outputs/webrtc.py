@@ -64,7 +64,7 @@ class WebRTCOutput(Output):
         if config.enable_audio():
             # bandwidth=superwideband allows the encoder to focus a little more on the important audio
             # (Basic testing showed 'wideband' to be quite poor poor)
-            pipeline_string += (' interpipesrc name=interaudiosrc ! audioconvert ! level message=true ! '
+            pipeline_string += (' interpipesrc name=interaudiosrc format=time ! audioconvert ! level message=true ! '
                                 'audioresample name=webrtc-audioresample ! opusenc bandwidth=superwideband  ! '
                                 'rtpopuspay ! application/x-rtp,media=audio,encoding-name=OPUS,payload=96 ! '
                                 'tee name=webrtc_audio_tee webrtc_audio_tee. ! fakesink')
