@@ -17,6 +17,7 @@ PyGObject = "^3.46.0"
 vext = "^0.7.6"
 psutil = "^5.9.5"
 gobject = "^0.1.0"
+graphviz = "^0.20.1"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.4.2"

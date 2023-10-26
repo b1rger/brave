@@ -6,6 +6,7 @@ from brave.helpers import run_on_master_thread_when_idle
 from brave.outputs.image import ImageOutput
 from sanic.exceptions import InvalidUsage
 import brave.config_file
+import graphviz
 
 
 async def all(request):
@@ -203,3 +204,24 @@ def _get_connection(request, id, create_if_not_made):
 
 def _status_ok_response():
     return sanic.response.json({'status': 'OK'})
+
+def _svg(data):
+    return "<h1>" + data.uid + "</h1>" + graphviz.Source(data.dotdata()).pipe(format="svg").decode() + "\n\n"
+
+def graph(request):
+    response = "<!DOCTYPE html><html><body>"
+    inputs = request.ctx.session.inputs
+    overlays = request.ctx.session.overlays
+    outputs = request.ctx.session.outputs
+    mixers = request.ctx.session.mixers
+    for item in inputs:
+        response += _svg(inputs[item])
+    for item in mixers:
+        response += _svg(mixers[item])
+    for item in overlays:
+        response += _svg(overlays[item])
+    for item in outputs:
+        response += _svg(outputs[item])
+
+    response += "</body></html>"
+    return sanic.response.text(response, content_type="text/html")

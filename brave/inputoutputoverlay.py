@@ -418,3 +418,6 @@ class InputOutputOverlay():
 
     def _can_move_to_playing_state(self):
         return True  # Overridden by some subclasses
+
+    def dotdata(self):
+        return Gst.debug_bin_to_dot_data(self.pipeline, Gst.DebugGraphDetails.ALL)
