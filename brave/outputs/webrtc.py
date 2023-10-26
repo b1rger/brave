@@ -127,7 +127,7 @@ class WebRTCOutput(Output):
                     }))
 
                 jsonData = json.dumps({'msg_type': 'volume', 'channels': channels, 'data': data})
-                self.event_loop.create_task(self._send_data_to_all_peers(jsonData))
+                self.event_loop.call_soon_threadsafe(lambda: self._send_data_to_all_peers(jsonData))
 
     async def _send_data_to_all_peers(self, jsonData):
         for ws in self.peers:
