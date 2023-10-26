@@ -280,11 +280,11 @@ class ConnectionToMixer(Connection):
 
         # Create the receiving 'inter' element to accept the AV into the main pipeline
         self._intersrc_element[audio_or_video] =\
-            self._add_element_to_dest_pipeline('inter%ssrc' % audio_or_video, audio_or_video)
+            self._add_element_to_dest_pipeline('interpipesrc', audio_or_video)
 
         # We ask the src to hold the frame for 24 hours (basically, a very long time)
         # This is optional, but prevents it from going black when it's better to show the last frame.
-        if audio_or_video is 'video':
-            self._intersrc_element[audio_or_video].set_property('timeout', Gst.SECOND * 60 * 60 * 24)
+        #if audio_or_video is 'video':
+        #    self._intersrc_element[audio_or_video].set_property('timeout', Gst.SECOND * 60 * 60 * 24)
 
         return self._intersrc_element[audio_or_video]

@@ -31,7 +31,7 @@ class FileOutput(Output):
             pipeline_string += ' ' + self._video_pipeline_start() + 'x264enc name=video_encoder ! queue ! mux.'
 
         if config.enable_audio():
-            audio_pipeline_string = ('interaudiosrc name=interaudiosrc ! '
+            audio_pipeline_string = ('interpipesrc name=interaudiosrc ! '
                                      'audioconvert ! audioresample ! avenc_aac name=audio_encoder')
 
             # A larger queue size enables the video encoder to take longer
