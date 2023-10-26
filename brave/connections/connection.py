@@ -92,12 +92,12 @@ class Connection():
         '''
         intersrc = self._create_intersrc(audio_or_video)
         intersink = self._create_intersink(audio_or_video)
-        self._block_intersrc(audio_or_video)
+        #self._block_intersrc(audio_or_video)
 
         # Give the 'inter' elements a channel name. It doesn't matter what, so long as they're unique.
         channel_name = create_intersink_channel_name()
-        intersink.set_property('channel', channel_name)
-        intersrc.set_property('channel', channel_name)
+        # intersink.set_property('async', 'false')
+        intersrc.set_property('listen-to', intersink.name)
         return intersrc, intersink
 
     def _block_intersrc(self, audio_or_video):
@@ -117,7 +117,7 @@ class Connection():
         The intervideosink/interaudiosink goes on the source (input/mixer) pipeline, to then connect to the destination.
         '''
         assert(audio_or_video in ['audio', 'video'])
-        element_name = 'inter%ssink' % audio_or_video
+        element_name = 'interpipesink' #'inter%ssink' % audio_or_video
         element = self._add_element_to_src_pipeline(element_name, audio_or_video)
         queue = self._add_element_to_src_pipeline('queue', audio_or_video, name=audio_or_video + '_queue')
         if not element or not queue:
