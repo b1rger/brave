@@ -1,0 +1,32 @@
+default_mixer_height: 360
+default_mixer_width: 640
+enable_audio: true
+enable_video: true
+inputs:
+- id: 1
+  loop: false
+  state: PLAYING
+  type: uri
+  uri: http://pendelcam.kip.uni-heidelberg.de/mjpg/video.mjpg
+  volume: 0.8
+mixers:
+- height: 360
+  id: 1
+  pattern: 0
+  sources:
+  - in_mix: true
+    uid: input1
+  state: PLAYING
+  type: mixer
+  width: 640
+outputs:
+- audio_bitrate: 128000
+  container: mpeg
+  height: 360
+  host: 10.0.2.100
+  id: 1
+  port: 7000
+  source: mixer1
+  state: PLAYING
+  type: tcp
+  width: 640
