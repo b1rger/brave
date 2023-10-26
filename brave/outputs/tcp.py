@@ -61,7 +61,7 @@ class TCPOutput(Output):
             audio_bitrate = self.audio_bitrate
 
             # Having default_audio_caps() in the pipeline stops them from changing and interrupting the encoder.
-            audio_pipeline_string = ('interaudiosrc name=interaudiosrc ! ' + config.default_audio_caps() +
+            audio_pipeline_string = ('interpipesrc name=interaudiosrc ! ' + config.default_audio_caps() +
                                      ' ! audioconvert ! audioresample ! %s name=audio_encoder bitrate=%d') % \
                 (audio_encoder_type, audio_bitrate)
             if has_mux:

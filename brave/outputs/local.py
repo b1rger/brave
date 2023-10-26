@@ -34,7 +34,7 @@ class LocalOutput(Output):
         if config.enable_video():
             pipeline_string += self._video_pipeline_start() + 'queue ! glimagesink'
         if config.enable_audio():
-            pipeline_string += ' interaudiosrc name=interaudiosrc ! queue ! autoaudiosink'
+            pipeline_string += ' interpipesrc name=interaudiosrc ! queue ! autoaudiosink'
 
         self.create_pipeline_from_string(pipeline_string)
 
