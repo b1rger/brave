@@ -32,7 +32,7 @@ class RTMPOutput(Output):
         if config.enable_video():
             # key-int-max=60 puts a keyframe every 2 seconds (60 as 2*framerate)
             pipeline_string += ' ' + self._video_pipeline_start() + \
-                'x264enc name=video_encoder key-int-max=60 ! h264parse ! queue ! mux.'
+                'x264enc name=video_encoder key-int-max=60 tune=zerolatency ! h264parse ! queue ! mux.'
 
         if config.enable_audio():
             pipeline_string += ' ' + self._audio_pipeline_start() + \
