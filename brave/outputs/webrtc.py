@@ -71,6 +71,13 @@ class WebRTCOutput(Output):
 
         self.create_pipeline_from_string(pipeline_string)
 
+        if config.enable_video():
+            self.pipeline.get_by_name('intervideosrc').set_property('is-live', 'true')
+            self.pipeline.get_by_name('intervideosrc').set_property('stream-sync', 0)
+        if config.enable_audio():
+            self.pipeline.get_by_name('interaudiosrc').set_property('is-live', 'true')
+            self.pipeline.get_by_name('interaudiosrc').set_property('stream-sync', 0)
+
         self.pipeline.get_bus().add_signal_watch()
         self.pipeline.get_bus().connect('message::element', self._on_element_message)
 

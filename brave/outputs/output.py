@@ -163,7 +163,7 @@ class Output(InputOutputOverlay):
         # The large timeout holds any stuck frame for 24 hours (basically, a very long time)
         # This is optional, but prevents it from going black when it's better to show the last frame.
         timeout = Gst.SECOND * 60 * 60 * 24
-        return ('interpipesrc name=intervideosrc format=time is-live=true  stream-sync=0  ! videoconvert ! videoscale ! '
+        return ('interpipesrc name=intervideosrc format=time ! videoconvert ! videoscale ! '
                 'videorate ! capsfilter name=capsfilter ! ')
 
     def _audio_pipeline_start(self):
@@ -171,4 +171,4 @@ class Output(InputOutputOverlay):
         The standard start to the pipeline string for audio.
         It starts with interaudiosrc, which accepts audio from the source.
         '''
-        return 'interpipesrc name=interaudiosrc format=time is-live=true stream-sync=0 ! audioconvert ! audioresample ! '
+        return 'interpipesrc name=interaudiosrc format=time ! audioconvert ! audioresample ! '
