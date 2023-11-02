@@ -89,10 +89,10 @@ class ConnectionToMixer(Connection):
     def _add_to_mix(self, audio_or_video):
         if audio_or_video not in self._mix_request_pad:
             # We need to conect the tee to the destination. This is the pad of the tee:
-            tee_pad = self._get_or_create_tee_pad(audio_or_video)
+            # tee_pad = self._get_or_create_tee_pad(audio_or_video)
             self._mix_request_pad[audio_or_video] = self.dest.get_new_pad_for_source(audio_or_video)
 
-            link_response = tee_pad.link(self._mix_request_pad[audio_or_video])
+            link_response = self._tee[audio_or_video].link(self.dest.mixer_element[audio_or_video]) #._mix_request_pad[audio_or_video])
             if link_response != Gst.PadLinkReturn.OK:
                 self.logger.error('Cannot link %s to mix, response was %s' % (audio_or_video, link_response))
 
@@ -210,7 +210,8 @@ class ConnectionToMixer(Connection):
         Dest pipeline looks like: intervideosrc -> videoscale -> videoconvert -> capsfilter -> queue -> tee
         '''
         intervideosrc, intervideosink = self._create_inter_elements('video')
-        self._create_dest_elements_after_intervideosrc(intervideosrc)
+        # self._create_dest_elements_after_intervideosrc(intervideosrc)
+        self._tee['video'] = intervideosrc
 
     def _create_dest_elements_after_intervideosrc(self, intervideosrc):
         '''
